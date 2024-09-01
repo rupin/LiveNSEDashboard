@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Dashboard</title>
+    <!-- Bootstrap 5.0 CSS -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+     <!-- App CS-->
+    <link href="assets/appcss/app.css" rel="stylesheet">
+    <style>
+        /* Custom styles for the list and scrollbar */
+        .scrollable-list {
+            max-height: 100vh;
+            overflow-y: auto;
+            padding-right: 15px; /* Adjust for scrollbar */
+        }
+
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+        }
+
+        .list-group-item a {
+            text-decoration: none;
+            
+        }
+
+        .list-group-item .arrow-icon {
+            cursor: pointer;
+            font-size: 18px;
+            
+        }
+
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .list-group-item .text-part {
+            font-weight: bold;
+            font-size: 26px;
+        }
+
+        .list-group-item .number-part {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        tr.fixed{
+            position: sticky; 
+            top: 0; 
+        }
+        
+
+        th {
+                position: sticky;
+                top: 0;
+            }
+
+        tbody td, tbody th {
+            padding: 20px;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #eee;
+            color: #222;
+        }
+        th,td{
+            font-size: 28px;
+        }
+
+       
+    th, 
+    td { 
+      padding: 8px 15px; 
+      border: 2px solid #529432; 
+    } 
+    th { 
+      background: #ABDD93; 
+    } 
+    </style>
+    
+    <script language="javascript">
+        
+    </script>
+</head>
+<body>
+    <input type="hidden" value="{{html_data.stocks_list}}" id="stocklist"/>
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="col-md-12">
+                <div class="fixTableHead">
+                    <!--<ul class="list-group">
+                        {% for symbol, data in html_data.stocks_data.items() %}
+                            <li class="list-group-item">
+
+                                <a class="nav-link " href="/stock/{{ symbol }}" id="{{ symbol }}"> 
+                               
+                                
+                                <div class="text-part">{{ symbol }} </div>
+                                <div id="{{symbol}}_price" class="number-part">{{ data['ltp'] }}</div>       
+                               
+                                
+                                </a>
+                            </li>
+         
+                        {% endfor %}
+                        
+                    </ul>-->
+
+                    <table width="100%">
+                        <tbody>
+                        <tr class="fixed">
+                            <th width="100px">Name</th>
+                            <th width="100px">Price</th>
+                            <th width="100px">Open</th>
+                            <th width="100px">Low</th>
+                            <th width="100px">High</th>
+                            <th width="100px">RSI</th>
+                        </tr>
+
+                        {% for symbol, data in html_data.stocks_data.items() %}
+                            <tr>
+                            <td>{{symbol}}</td>
+                            <td id="{{symbol}}_price">{{ data['ltp'] }}</td>
+                            <td id="{{symbol}}_open">{{ data['open'] }}</td>
+                            <td id="{{symbol}}_low">{{ data['low'] }}</td>
+                            <td id="{{symbol}}_high">{{ data['high'] }}</td>
+                            <td id="{{symbol}}_rsi">50</td>
+                           
+                            </tr>
+                                
+         
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right 2/3 Section -->
+            <!--<div class="col-md-7">
+                 This area is currently blank -->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.0 JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+
+    
+
+    <!-- Application specific js -->
+    <script src="assets/appjs/app.js"></script>
+</body>
+</html>
