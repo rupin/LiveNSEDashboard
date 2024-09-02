@@ -47,7 +47,14 @@ def index():
         stockObjects.append(stockObject)
         #print("fetching data for {}".format(symbol), file=sys.stdout)
         ohlc=stockObject.fetch_ohlc_data(preload=True)
-        #historicData=stockObject.fetchHistoricData()
+        try:
+            #historicData=stockObject.fetchHistoricData()
+            stockObject.calculate_rsi()
+            #print("Historic data for {}".format(symbol), file=sys.stdout)
+            #print(historicData, file=sys.stdout)
+        except Exception as e:
+            print(e, file=sys.stdout)
+               
         stocks_ohlc_data[symbol]=ohlc
         htmldata={}
         htmldata["stocks_data"]=stocks_ohlc_data
@@ -74,7 +81,7 @@ def stock_data(symbol):
     #stock.fetch_rsi()
     history=stock.fetch_history()
 
-    print(history, file=sys.stdout)
+    #print(history, file=sys.stdout)
 
 
     fig = go.Figure(data=[go.Scatter(x=history.index, y=history['close'], mode='lines', name=symbol)])

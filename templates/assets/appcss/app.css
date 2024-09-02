@@ -1,9 +1,11 @@
 .low {
   
   color: #FF0000;
+  font-weight: bold;
 }
 
 .high {
   
   color: #36ca36;
+  font-weight: bold;
 }

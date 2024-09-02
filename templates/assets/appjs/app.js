@@ -28,20 +28,21 @@ function fetchData(stockname) {
             open_id=stockname+"_open"
             low_id=stockname+"_low"
             high_id=stockname+"_high"
+            rsi_id=stockname+"_rsi"
 
-            //document.getElementById(price_id).classList.remove("high")
-            //document.getElementById(price_id).classList.remove("low")
+            document.getElementById(price_id).classList.remove("high")
+            document.getElementById(price_id).classList.remove("low")
 
             if(ltp>previousClose)
             {
-
+                document.getElementById(price_id).classList.add("high")
             }
                 //document.getElementById(stockname).classList.add("high")
                 //document.getElementById(price_id).classList.add("high")
 
             if(ltp<previousClose)
             {
-
+                document.getElementById(price_id).classList.add("low")
             }
                 //document.getElementById(stockname).classList.add("low")
                 //document.getElementById(price_id).classList.add("low")
@@ -53,6 +54,7 @@ function fetchData(stockname) {
             document.getElementById(open_id).innerHTML=data.open
             document.getElementById(low_id).innerHTML=data.low
             document.getElementById(high_id).innerHTML=data.high
+            document.getElementById(rsi_id).innerHTML=data.rsi
             //console.log("Fetched")
         })
         .catch(error => console.error('Error fetching data:', error));
