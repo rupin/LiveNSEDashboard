@@ -1,4 +1,6 @@
 // Function to fetch data from the Flask endpoint using the Fetch API
+
+
 function fetchData(stockname) {
     //console.log(stockname)
     fetch('/stock/'+stockname+'/live')
@@ -15,7 +17,7 @@ function fetchData(stockname) {
 
             if(data.ltp==0)
             {
-                window.location.reload(1)
+                //window.location.reload(1)
             }
             previousClose=data.close
             ltp=data.ltp
@@ -65,7 +67,8 @@ const array = JSON.parse(stockList.replace(/'/g, '"')); // Replacing single quot
 // Loop through the array and log each value
 array.forEach(value => {
     //console.log(value)
-    setInterval(function() { fetchData(value); }, 1000);
+    interval=Math.floor(Math.random() * 5000) + 5000
+    setInterval(function() { fetchData(value); },interval );
 });
 
 

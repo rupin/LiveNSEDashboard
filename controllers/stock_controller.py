@@ -20,7 +20,7 @@ def fetchLive(symbol):
     for stockobject in stockObjects:
         if stockobject.getSymbol()==symbol:
             #print(symbol, file=sys.stdout)
-            return stockobject.fetch_ohlc_data()        
+            return stockobject.fetch_ohlc_data()       
     
     return Stock.ohlc
 
@@ -33,16 +33,21 @@ def index():
     # Open the file in read mode
     #print(os.getcwd(), file=sys.stdout)
     filename="list.txt"
+
     fullpath=os.path.join(os.getcwd(), 'controllers', filename)
     with open(fullpath, 'r') as file:
     # Read lines, strip newline characters, and add to a list
         stock_list = [line.strip() for line in file]
+        stock_list=list(set(stock_list))
+        stock_list.sort()
+        print(stock_list, file=sys.stdout)
     #stock_list = ['RELIANCE', 'MAZDOCK', 'KTKBANK', 'PCBL', 'JUBLINGREA']
     for symbol in stock_list:
         stockObject=Stock(symbol)
         stockObjects.append(stockObject)
         #print("fetching data for {}".format(symbol), file=sys.stdout)
         ohlc=stockObject.fetch_ohlc_data(preload=True)
+        #historicData=stockObject.fetchHistoricData()
         stocks_ohlc_data[symbol]=ohlc
         htmldata={}
         htmldata["stocks_data"]=stocks_ohlc_data
@@ -122,5 +127,4 @@ def stock_data(symbol):
 
     rsi_fig = go.Figure(data=[rsi_line], layout=layout)
     rsiJSON = json.dumps(rsi_fig, cls=PlotlyJSONEncoder)
-
     return render_template('stock.html', symbol=symbol, ohlc=ohlc, graphJSON=graphJSON, rsiJSON=rsiJSON)

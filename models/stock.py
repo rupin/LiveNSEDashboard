@@ -10,6 +10,7 @@ class Stock:
         self.symbol = symbol
         self.data_dir = 'data'
         self.ohlc=Stock.ohlc
+        self.lastrsi=50
         
 
         self.rename_dict={'CH_TIMESTAMP':'timestamp',
@@ -44,12 +45,13 @@ class Stock:
                     'high': data['priceInfo']['intraDayHighLow']['max'],
                     'low': data['priceInfo']['intraDayHighLow']['min'],
                     'close': data['priceInfo']['previousClose'],
-                    'ltp':data['priceInfo']['lastPrice']
+                    'ltp':data['priceInfo']['lastPrice'],
+                    'rsi':self.lastrsi
                 }
             except Exception as e: 
                 print(e)
                 
-        print(self.ohlc, file=sys.stdout)
+        #print(self.ohlc, file=sys.stdout)
         return self.ohlc
     
     def fetchHistoricData(self):
@@ -104,8 +106,7 @@ class Stock:
 
     def fetch_rsi(self):
         
-        history = self.fetch_history()
-        #print(history)
+        history = self.fetch_history()        
         history['RSI'] = ta.rsi(history['close'], length=14)
         return 
     
