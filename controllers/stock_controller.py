@@ -40,20 +40,20 @@ def index():
         stock_list = [line.strip() for line in file]
         stock_list=list(set(stock_list))
         stock_list.sort()
-        print(stock_list, file=sys.stdout)
+        #print(stock_list, file=sys.stdout)
     #stock_list = ['RELIANCE', 'MAZDOCK', 'KTKBANK', 'PCBL', 'JUBLINGREA']
     for symbol in stock_list:
         stockObject=Stock(symbol)
+        stockObject.setRefreshFlag(False)
         stockObjects.append(stockObject)
         #print("fetching data for {}".format(symbol), file=sys.stdout)
         ohlc=stockObject.fetch_ohlc_data(preload=True)
-        try:
-            #historicData=stockObject.fetchHistoricData()
-            stockObject.calculate_rsi()
-            #print("Historic data for {}".format(symbol), file=sys.stdout)
-            #print(historicData, file=sys.stdout)
-        except Exception as e:
-            print(e, file=sys.stdout)
+        
+        #historicData=stockObject.fetchHistoricData()
+        stockObject.calculate_parameters()
+        #print("Historic data for {}".format(symbol), file=sys.stdout)
+        #print(historicData, file=sys.stdout)
+       
                
         stocks_ohlc_data[symbol]=ohlc
         htmldata={}
@@ -68,8 +68,8 @@ def index():
 def movers():
     #print(os.getcwd(), file=sys.stdout)
     mkt=Market()
-    mkt.fetchMovers()
-    return "Hello"
+    stockslist=mkt.fetchMovers()
+    return stockslist.to_html()
 
     
 

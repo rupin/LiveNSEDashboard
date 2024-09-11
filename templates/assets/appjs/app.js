@@ -69,7 +69,7 @@ const array = JSON.parse(stockList.replace(/'/g, '"')); // Replacing single quot
 // Loop through the array and log each value
 array.forEach(value => {
     //console.log(value)
-    interval=Math.floor(Math.random() * 5000) + 5000
+    interval=Math.floor(Math.random() * 5000)
     setInterval(function() { fetchData(value); },interval );
 });
 

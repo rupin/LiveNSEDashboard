@@ -2,6 +2,10 @@ from flask import Flask
 from controllers.stock_controller import stock_blueprint
 STATIC_FOLDER = 'templates/assets'
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 app = Flask(__name__,static_folder=STATIC_FOLDER)
 
 # Register the stock blueprint
